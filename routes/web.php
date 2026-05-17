@@ -5,7 +5,6 @@ use Livewire\Volt\Volt;
 use App\Http\Controllers\PdfController;
 
 Volt::route('/', 'patient.home')->name('home');
-Volt::route('/about', 'patient.about')->name('patient.about');
 
 Route::middleware(['auth'])->group(function () {
     // -----------------------------------------------------------------------
