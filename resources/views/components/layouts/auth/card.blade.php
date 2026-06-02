@@ -7,9 +7,9 @@
 
 <body class="font-sans text-gray-900 antialiased">
     <div
-        class="min-h-screen flex flex-col sm:justify-center items-center p-4 bg-gradient-to-br from-cyan-100 via-teal-200 to-emerald-300 bg-[length:200%_200%] animate-gradient-bg">
+        class="min-h-screen flex flex-col justify-center items-center p-4 bg-gradient-to-br from-cyan-100 via-teal-200 to-emerald-300 bg-[length:200%_200%] animate-gradient-bg">
 
-        <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden my-4">
+        <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden my-auto">
 
             <div class="w-full p-8 sm:p-12 flex flex-col justify-center">
                 <div class="flex flex-col items-center mb-6 text-center">
