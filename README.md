@@ -1,111 +1,140 @@
-# Podiatrix — Modern Diabetic Foot Screening Application
+<div align="center">
 
-## 🌟 About Podiatrix
+# Podiatrix
 
-**Podiatrix** is a high-performance, responsive web application built to digitize and automate diabetic foot screenings using the clinically standardized **Inlow’s 60-Second Diabetic Foot Screen**. Designed for healthcare professionals and self-screening patients, Podiatrix accelerates assessment speed, minimizes clinical guesswork, provides real-time risk classification, and auto-generates dynamic care recommendations.
+**Diabetic foot screening application based on Inlow's 60-Second Diabetic Foot Screen.**
 
-By digitizing physical examinations of skin, nail conditions, sensory response, vascular flow, and deformities, Podiatrix transforms complex medical checklists into a flawless multi-step user experience.
+Podiatrix is a responsive web application that digitizes the Inlow's 60-Second Diabetic Foot Screen. Healthcare professionals and patients complete the exam step by step, and the app calculates the screening score, assigns one of five risk categories, and generates care recommendations. Patients can also book appointments with a practice and download a PDF report of their results.
 
----
+<br />
 
-## ✨ Key Features
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Livewire](https://img.shields.io/badge/Livewire-3-FB70A9?style=for-the-badge&logo=livewire&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Flowbite](https://img.shields.io/badge/Flowbite-3.1-1C64F2?style=for-the-badge&logo=flowbite&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-- 📋 **Multi-Step Assessment Wizard**: Step-by-step physical examination flow optimized for desktop, tablet, and mobile browsers.
-- 🧮 **Automated Score Calculation**: Employs standardized scoring logic to compute a total Inlow's screening score instantly.
-- 🏷️ **Dynamic Risk Classification**: Classifies patients into 5 clinical risk categories (Sangat Rendah, Rendah, Sedang, Tinggi, Darurat) and generates automated, actionable recommendations.
-- 📅 **Integrated Appointment & Practice Scheduler**: Allows patients to view healthcare provider availability and book slots with instant queue number assignments.
-- 🔒 **Safe Concurrency Booking Engine**: Implements database-level row locking (`lockForUpdate`) to prevent overbooking and guarantee absolute schedule quota integrity.
-- 🖨️ **Professional PDF Report Downloads**: Generates elegant, clinical-grade A4 Portrait reports using custom print-styled blade structures powered by DomPDF.
-- 🚦 **Rate Limiting Security**: Restricts malicious double-clicks and automated submissions on screenings and bookings.
-
----
-
-## 🛠️ Technical Stack & Architecture
-
-Podiatrix is engineered with a modern, high-speed **TALL Stack** paired with strict concurrency and state management rules:
-
-| Layer | Component | Description |
-|---|---|---|
-| **Core Framework** | **Laravel 12.0** | Robust, modern backend ecosystem with optimized container pipelines. |
-| **State & Interactivity**| **Livewire 3 (Volt & Flux UI)** | Component-driven reactive UI. Volt allows single-file Livewire components. |
-| **Front-End Styling** | **Tailwind CSS v4.0** | Next-generation utility-first styling with lightning-fast `@tailwindcss/vite` compiler. |
-| **Component Kit** | **Flowbite 3.1 & Flux UI** | Modern, highly accessible UI foundations. |
-| **PDF Engine** | **Barryvdh DomPDF 3.1** | HTML-to-PDF conversion engine utilizing page-break control rules. |
-| **Database** | **MySQL** | High-performance transactional persistence with row-locking support. |
-| **Security & RBAC** | **Spatie Laravel Permission 7.2** | Strict Role-Based Access Control dividing system access into `admin` and `patient` portals. |
+</div>
 
 ---
 
-## 🩺 Clinical Logic: Inlow's 60-Second Screening Rules
+## Table of Contents
 
-Diabetic foot screenings compute a total score out of maximum assessment points and derive the final risk classification. The calculation logic in `ScreeningService.php` is strictly mapped as follows:
-
-### 1. Inlow's Score Composition
-The total score is the sum of maximum points from both feet across multiple criteria:
-- **Skin Condition** (Max 3 pts): Dryness, fungal infections, calluses, or history of ulcers.
-- **Nail Condition** (Max 3 pts): Discoloration, thickness, or ingrown nails.
-- **Sensation** (Max 4 pts): Measured using a 10g monofilament test + symptom checklist (numbness, tingling, burning).
-- **Vascular / PAD** (Max 12 pts): Sum of Pain (Max 3), Rubor / Redness (Max 3), Temperature (Max 3), and Pedal Pulse (Max 3).
-- **Deformity** (Max 3 pts): Structural anomalies, Charcot joints, or amputations.
-- **Range of Motion / ROM** (Max 3 pts): Ankle joint flex stability.
-- **Footwear** (Max 3 pts): Fit, wear quality, and protection.
-
-### 2. Clinical Risk Classification Priority
-Risk is evaluated from highest to lowest severity, triggering immediate warnings for high-risk patients:
-
-| Classification | Triggering Clinical Conditions | Recommended Actions |
-|---|---|---|
-| **🚨 Darurat (Emergency)** | Active ulcer OR Active Charcot foot | Immediate tertiary wound clinic referral. |
-| **⚠️ Tinggi (High)** | (LOPS OR PAD) AND (History of ulcer OR History of amputation) | Specialized vascular/foot clinic referral, inspect every 1-3 months. |
-| **⚡ Sedang (Moderate)** | Any 2 combinations of: LOPS, PAD, or Deformity | Protective footwear prescription, check every 3-6 months. |
-| **🟢 Rendah (Low)** | LOPS (Loss of Sensation) OR PAD (Vascular issues) | Patient education, inspect every 6-12 months. |
-| **✅ Sangat Rendah (Very Low)** | None of the above conditions met | Patient self-care education, check annually. |
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Clinical Logic](#clinical-logic)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running the Application](#running-the-application)
+- [Demo Accounts](#demo-accounts)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Security](#security)
+- [Medical Disclaimer](#medical-disclaimer)
+- [License](#license)
 
 ---
 
-## 🚀 Getting Started
+## Features
 
-Follow these instructions to run a local copy of Podiatrix on your system.
+- **Multi-step assessment wizard.** A guided physical examination flow that works on desktop, tablet, and mobile browsers.
+- **Automated scoring.** The app computes the total Inlow's screening score as soon as the exam is complete.
+- **Risk classification.** Patients fall into one of five risk categories (Sangat Rendah, Rendah, Sedang, Tinggi, Darurat), each with a matching recommendation.
+- **Appointment scheduler.** Patients view provider availability and book a slot. Each booking receives a queue number.
+- **Overbooking protection.** Bookings use database row locking (`lockForUpdate`), so a slot cannot exceed its quota under concurrent requests.
+- **PDF reports.** Clinical-style A4 portrait reports are generated from print-styled Blade templates with DomPDF.
+- **Rate limiting.** Screening and booking endpoints reject repeated and automated submissions.
+- **Role-based access control.** Separate `admin` and `patient` portals, managed with Spatie Laravel Permission.
+
+## Tech Stack
+
+| Layer | Technology | Purpose |
+| --- | --- | --- |
+| Backend framework | [Laravel 12](https://laravel.com) | Routing, ORM, queues, validation |
+| Reactive UI | [Livewire 3](https://livewire.laravel.com) with Volt and [Flux UI](https://fluxui.dev) | Component-driven interface, single-file components |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com) | Utility-first CSS, compiled with `@tailwindcss/vite` |
+| UI components | [Flowbite 3.1](https://flowbite.com) and Flux UI | Accessible interface components |
+| Build tool | [Vite](https://vitejs.dev) | Asset bundling and dev server |
+| PDF generation | [barryvdh/laravel-dompdf 3.1](https://github.com/barryvdh/laravel-dompdf) | HTML-to-PDF reports |
+| Database | MySQL | Transactional storage with row-lock support |
+| Authorization | [Spatie Laravel Permission 7.2](https://spatie.be/docs/laravel-permission) | Roles and permissions |
+
+## Clinical Logic
+
+The scoring and classification rules live in `ScreeningService.php`.
+
+### Score composition
+
+The total score adds the maximum points from both feet across seven criteria.
+
+| Criterion | Max points | What it covers |
+| --- | --- | --- |
+| Skin condition | 3 | Dryness, fungal infection, calluses, ulcer history |
+| Nail condition | 3 | Discoloration, thickness, ingrown nails |
+| Sensation | 4 | 10g monofilament test and symptom checklist (numbness, tingling, burning) |
+| Vascular / PAD | 12 | Pain (3), rubor (3), temperature (3), pedal pulse (3) |
+| Deformity | 3 | Structural anomalies, Charcot joints, amputations |
+| Range of motion | 3 | Ankle joint flexibility and stability |
+| Footwear | 3 | Fit, wear, and protection |
+
+### Risk classification
+
+The service checks conditions from the most severe category to the least severe and returns the first match.
+
+| Category | Condition | Recommended action |
+| --- | --- | --- |
+| Darurat (Emergency) | Active ulcer, or active Charcot foot | Immediate referral to a tertiary wound clinic |
+| Tinggi (High) | (LOPS or PAD) and (ulcer history or amputation history) | Referral to a vascular or foot specialist, inspection every 1 to 3 months |
+| Sedang (Moderate) | Any two of LOPS, PAD, or deformity | Protective footwear prescription, inspection every 3 to 6 months |
+| Rendah (Low) | LOPS or PAD | Patient education, inspection every 6 to 12 months |
+| Sangat Rendah (Very Low) | None of the above | Self-care education, annual inspection |
+
+LOPS stands for loss of protective sensation. PAD stands for peripheral arterial disease.
+
+## Getting Started
 
 ### Prerequisites
 
 - PHP 8.2 or higher
-- Composer
-- Node.js (v18+) & npm
-- MySQL or SQLite database
+- [Composer](https://getcomposer.org)
+- Node.js 18 or higher, with npm
+- MySQL (SQLite also works for local development)
 
-### Installation & Setup
+### Installation
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/wildanzm/podiatrix.git
+1. Clone the repository.
+
+   ```bash
+   git clone https://github.com/wildannzm/podiatrix.git
    cd podiatrix
    ```
 
-2. **Install PHP dependencies:**
-   ```sh
+2. Install PHP dependencies.
+
+   ```bash
    composer install
    ```
 
-3. **Install and compile frontend assets:**
-   ```sh
+3. Install frontend dependencies.
+
+   ```bash
    npm install
-   npm run build
    ```
 
-4. **Prepare Environment File:**
-   Copy the example environment configuration:
-   ```sh
+4. Create the environment file and generate the application key.
+
+   ```bash
    cp .env.example .env
-   ```
-   Generate the application security key:
-   ```sh
    php artisan key:generate
    ```
 
-5. **Configure Database Settings:**
-   Open `.env` and set up your MySQL connection details:
-   ```env
+5. Set your database credentials in `.env`.
+
+   ```dotenv
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
@@ -114,42 +143,95 @@ Follow these instructions to run a local copy of Podiatrix on your system.
    DB_PASSWORD=your_secure_password
    ```
 
-6. **Run Database Migrations & Seeds:**
-   This seeds the default clinical roles and ready-to-use testing accounts:
-   ```sh
+6. Run migrations and seeders. The seeders create the default roles and demo accounts.
+
+   ```bash
    php artisan migrate --seed
    ```
 
----
+7. Build the frontend assets.
 
-## 🔐 Default Demo Accounts
+   ```bash
+   npm run build
+   ```
 
-Use the following seeded accounts to explore Podiatrix’s role-based dashboard portals:
+### Running the Application
 
-> [!NOTE]
-> Make sure your database is seeded using `php artisan db:seed` or `php artisan migrate --seed`.
+Start the web server, queue worker, and Vite dev server with one command:
 
-### 🩺 Healthcare Worker / Admin Portal
-- **Email**: `admin@podiatrix.com`
-- **Password**: `admin123`
-- **Permissions**: Manage practice schedules, access active patient queues, perform physical screenings, write clinical notes, and download official PDF screening reports.
-
-### 👤 Patient Portal
-- **Email**: `user@podiatrix.com`
-- **Password**: `user1234`
-- **Permissions**: Complete self-screening walkthroughs, book practice appointments, track real-time queue assignments, view screening history, and access diabetic education resources.
-
----
-
-## 💻 Running Locally
-
-To start all necessary servers (Laravel backend, queue worker, and Vite assets compiler) simultaneously, run:
-```sh
+```bash
 composer dev
 ```
-*Alternatively, you can run them in separate terminal windows:*
-- **Web Server**: `php artisan serve`
-- **Queue Worker**: `php artisan queue:listen`
-- **Vite Compiler**: `npm run dev`
 
-The application will be accessible at [http://127.0.0.1:8000](http://127.0.0.1:8000).
+To run them separately, use three terminals:
+
+```bash
+php artisan serve          # web server
+php artisan queue:listen   # queue worker
+npm run dev                # Vite dev server
+```
+
+The application is available at <http://127.0.0.1:8000>.
+
+## Demo Accounts
+
+The seeders create two accounts, one per role. Run `php artisan migrate --seed` or `php artisan db:seed` if they are missing.
+
+| Role | Email | Password | Access |
+| --- | --- | --- | --- |
+| Admin (healthcare worker) | `admin@podiatrix.com` | `admin123` | Manage practice schedules, view patient queues, perform screenings, write clinical notes, download PDF reports |
+| Patient | `user@podiatrix.com` | `user1234` | Self-screening, appointment booking, queue tracking, screening history, diabetic education resources |
+
+> [!WARNING]
+> These credentials are for local development only. Remove or change them before any deployment.
+
+## Project Structure
+
+The project follows the standard Laravel layout.
+
+```text
+podiatrix/
+├── app/            # Application code (models, Livewire components, services)
+├── bootstrap/      # Framework bootstrap files
+├── config/         # Configuration files
+├── database/       # Migrations, factories, seeders
+├── public/         # Web root and compiled assets
+├── resources/      # Blade views, CSS, JavaScript
+├── routes/         # Route definitions
+├── storage/        # Logs, cache, generated files
+├── tests/          # Automated tests
+└── .github/        # GitHub Actions workflows
+```
+
+## Testing
+
+Run the test suite with PHPUnit through Artisan:
+
+```bash
+php artisan test
+```
+
+## Security
+
+- Screening and booking endpoints are rate limited.
+- Booking quotas are enforced with database row locks.
+- Access is restricted by role (`admin` and `patient`).
+- Keep `.env` out of version control, and use strong credentials in every non-local environment.
+
+To report a vulnerability, open a private security advisory on the [Security tab](https://github.com/wildannzm/podiatrix/security) of the repository instead of filing a public issue.
+
+## Medical Disclaimer
+
+Podiatrix is a screening aid. It does not diagnose conditions or replace the judgment of a qualified healthcare professional. Consult a clinician for diagnosis and treatment decisions.
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+
+Maintained by [Wildan Zhilal Manafi](https://github.com/wildannzm)
+
+</div>
